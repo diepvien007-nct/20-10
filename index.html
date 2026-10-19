@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</title>
+  <meta name="description" content="Món quà tinh thần nho nhỏ gửi tặng một nửa thế giới nhân ngày Phụ nữ Việt Nam 20/10." />
+  <meta name="theme-color" content="#040308" />
+
+  <!-- Biểu tượng trang web (Favicon) & Thẻ chia sẻ mạng xã hội (Zalo, Messenger, Facebook) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💐</text></svg>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐" />
+  <meta property="og:description" content="Một bó hoa tươi thắm và bức thư nhỏ dành riêng tặng bạn nhân ngày 20/10 ✨" />
+  <meta property="og:image" content="assets/bouquet.png" />
+
+  <!-- Tải trước hình ảnh để khi bấm xác nhận tên là hiện ra mượt ngay lập tức -->
+  <link rel="preload" as="image" href="assets/bouquet.png" />
+  <link rel="preload" as="image" href="assets/aodai.png" />
+  <link rel="preload" as="image" href="assets/aodai_bike.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Courier+Prime:wght@700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Nền Canvas: Bầu trời đêm, sao lấp lánh, sao băng, đồng cỏ & hoa phát sáng đung đưa -->
+  <canvas id="sceneCanvas"></canvas>
+
+  <!-- Lớp ánh sáng nền ấm áp ở chân trời -->
+  <div class="horizon-glow"></div>
+
+  <!-- Nút bật/tắt nhạc góc phải trên -->
+  <button id="musicToggle" class="music-btn hidden" aria-label="Bật/Tắt nhạc" title="Bật/Tắt nhạc nền">
+    <div class="music-bars">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <span class="music-label">Nhạc nền</span>
+  </button>
+
+  <!-- Audio phát nhạc -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/20_10.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- ==================== MÀN HÌNH 1: KHUNG NHẬP TÊN DỄ THƯƠNG ==================== -->
+  <section id="welcomeModal" class="modal-backdrop active">
+    <div class="cute-frame">
+      <!-- Họa tiết trang trí 4 góc khung -->
+      <div class="corner-deco top-left">🌸</div>
+      <div class="corner-deco top-right">✨</div>
+      <div class="corner-deco bottom-left">🌷</div>
+      <div class="corner-deco bottom-right">🎀</div>
+
+      <!-- Hoa lá SVG trang trí viền trên -->
+      <div class="frame-header-illust">
+        <svg viewBox="0 0 220 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 35C55 15 90 35 110 22C130 35 165 15 200 35" stroke="#F48FB1" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4"/>
+          <circle cx="65" cy="24" r="5" fill="#F8BBD0" />
+          <circle cx="155" cy="24" r="5" fill="#F8BBD0" />
+          <path d="M110 8C113 14 119 16 119 22C119 26 115 29 110 29C105 29 101 26 101 22C101 16 107 14 110 8Z" fill="#EC407A"/>
+          <circle cx="110" cy="21" r="3.5" fill="#FFF9C4"/>
+        </svg>
+      </div>
+
+      <div class="badge-2010">✿ Happy Women's Day 20/10 ✿</div>
+
+      <h1 class="welcome-title">Chào bạn xinh đẹp! 🌷</h1>
+      <p class="welcome-desc">
+        Hôm nay là một ngày thật đặc biệt. Trước khi mở món quà nhỏ này, cho mình biết <strong>tên của bạn</strong> nhé!
+      </p>
+
+      <form id="nameForm" class="name-form" autocomplete="off">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="userNameInput"
+            placeholder="Nhập tên của bạn vào đây..."
+            maxlength="35"
+            required
+            autofocus
+          />
+        </div>
+        <p id="inputError" class="input-error">Bạn ơi, hãy nhập tên để nhận hoa nhé! 🌸</p>
+
+        <button type="submit" id="startBtn" class="cute-submit-btn">
+          <span>Nhận quà 20/10 ngay</span>
+          <span class="btn-sparkle">✨</span>
+        </button>
+      </form>
+
+      <div class="welcome-footer-note">
+        <span>🎵 Nhớ bật âm lượng để nghe nhạc nhé</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MÀN HÌNH 2: BẦU TRỜI ĐÊM + ÁO DÀI + BÓ HOA ==================== -->
+  <main id="mainStage" class="main-stage">
+    <!-- Dòng chữ phát sáng phía trên giống ảnh 1 (có hiệu ứng gõ chữ từng nhịp) -->
+    <header class="sky-header">
+      <p class="neon-typing-text" id="skyGreetingText" aria-label="20/10 dịu dàng rạng rỡ như hoa nhé">
+        <span id="skyTypedLine1"></span><br />
+        <span id="skyTypedLine2"></span><span id="skyCursor" class="typing-cursor">|</span>
+      </p>
+      <p class="sky-sub-greeting" id="skySubGreeting">
+        Gửi tặng <span id="skyUserName" class="highlight-sky-name">bạn</span> một bó hoa thật tươi ✨
+      </p>
+    </header>
+
+    <!-- Hình ảnh thiếu nữ mặc áo dài nón lá bên chiếc xe đạp chở đầy hoa bên trái (cùng nét vẽ vàng ấm với bên phải) -->
+    <div class="aodai-bike-container" aria-hidden="true">
+      <img src="assets/aodai_bike.png" alt="Thiếu nữ Áo dài và xe đạp chở hoa" class="aodai-bike-img" onerror="this.style.display='none'" />
+    </div>
+
+    <!-- Hình ảnh 2 cô gái mặc áo dài nón lá phát sáng bên phải (đã tách nền PNG trong suốt hòa làm một với bầu trời) -->
+    <div class="aodai-container" aria-hidden="true">
+      <img src="assets/aodai.png" alt="Thiếu nữ Áo dài Việt Nam" class="aodai-img" onerror="this.style.display='none'" />
+    </div>
+
+    <!-- Khu vực Bó Hoa Chính Giữa (đã tách nền PNG trong suốt không còn viền mờ) -->
+    <div class="bouquet-center-stage">
+      <div id="bouquetTrigger" class="bouquet-wrapper" role="button" tabindex="0" aria-label="Chạm vào bó hoa để mở thư">
+        <!-- Vầng sáng hồng dịu phía sau bó hoa -->
+        <div class="bouquet-aura"></div>
+        <div class="bouquet-sparkles" id="bouquetSparkles"></div>
+
+        <!-- Ảnh bó hoa hồng sắc nét tách nền trong suốt -->
+        <div class="bouquet-img-box">
+          <img
+            src="assets/bouquet.png"
+            alt="Bó hoa hồng 20/10"
+            class="bouquet-img"
+            id="bouquetImage"
+          />
+        </div>
+
+        <!-- Dòng chữ "Chạm vào bó hoa" ở dưới bó bông -->
+        <div class="touch-prompt">
+          <span class="touch-hand-icon">👆</span>
+          <span class="touch-text">Chạm vào bó hoa nhé 🌷</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== MÀN HÌNH 3: PHONG BÌ 3D MỞ RA BỨC THƯ HỒNG NHẠT ==================== -->
+  <section id="letterOverlay" class="letter-overlay" aria-hidden="true">
+    <div class="letter-backdrop" id="letterBackdrop"></div>
+
+    <!-- GIAI ĐOẠN 3A: Phong bì 3D xinh xắn bay ra và bung nắp -->
+    <div id="envelopeStage" class="envelope-stage">
+      <div class="envelope-3d" id="envelope3D">
+        <div class="env-back"></div>
+
+        <div class="env-letter-preview">
+          <div class="preview-mini-header">🎀 20/10 🎀</div>
+          <div class="preview-mini-title">Gửi <span id="envPreviewName">Bạn</span> 💖</div>
+          <div class="preview-mini-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="env-pocket"></div>
+        <div class="env-flap"></div>
+
+        <div class="env-wax-seal" id="envWaxSeal">
+          <span>💌</span>
+        </div>
+      </div>
+      <p class="envelope-status-text" id="envelopeStatusText">Đang mở phong thư gửi tặng bạn... ✨</p>
+    </div>
+
+    <!-- GIAI ĐOẠN 3B: Tờ thư đầy đủ bung ra + Cố định nút X + Trang trí các bông hoa/bó hoa nhỏ xung quanh -->
+    <div class="letter-card-container" id="letterCardContainer">
+      <!-- Nút X cố định tuyệt đối ở góc trên bên phải khung thư (không bị trôi khi cuộn) -->
+      <button id="closeLetterBtn" class="close-letter-btn" aria-label="Đóng bức thư" title="Đóng thư">✕</button>
+
+      <!-- Hoa & bó hoa nhỏ trang trí xung quanh viền bức thư -->
+      <div class="letter-floral-deco deco-tl" aria-hidden="true">🌸</div>
+      <div class="letter-floral-deco deco-bl" aria-hidden="true">💐</div>
+      <div class="letter-floral-deco deco-br" aria-hidden="true">🌷</div>
+
+      <div class="letter-card">
+        <!-- Họa tiết dây hoa & ruy băng đầu bức thư -->
+        <div class="letter-top-ribbon">
+          <span class="mini-flower-badge">🌸</span>
+          <span class="ribbon-bow">🎀</span>
+          <span class="letter-date">Ngày 20 tháng 10 năm 2026</span>
+          <span class="mini-flower-badge">🌷</span>
+        </div>
+
+        <!-- Dây hoa SVG mềm mại trang trí phía trên tờ giấy thư -->
+        <div class="letter-floral-garland" aria-hidden="true">
+          <svg viewBox="0 0 320 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 18C65 4 115 28 160 14C205 28 255 4 308 18" stroke="#F48FB1" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4"/>
+            <circle cx="55" cy="14" r="4.5" fill="#F8BBD0"/>
+            <circle cx="55" cy="14" r="2" fill="#FFF9C4"/>
+            <circle cx="112" cy="19" r="3.5" fill="#F48FB1"/>
+            <circle cx="160" cy="14" r="6" fill="#EC407A"/>
+            <circle cx="160" cy="14" r="2.5" fill="#FFF9C4"/>
+            <circle cx="208" cy="19" r="3.5" fill="#F48FB1"/>
+            <circle cx="265" cy="14" r="4.5" fill="#F8BBD0"/>
+            <circle cx="265" cy="14" r="2" fill="#FFF9C4"/>
+          </svg>
+        </div>
+
+        <!-- Nội dung tờ giấy thư -->
+        <div class="letter-paper">
+          <!-- Hoa chìm & bó hoa nhỏ trang trí các góc trong tờ giấy -->
+          <div class="paper-corner-flower top-right-flower" aria-hidden="true">🌺</div>
+          <div class="paper-corner-flower bottom-left-flower" aria-hidden="true">💐</div>
+          <div class="letter-watermark" aria-hidden="true">🌸</div>
+
+          <h2 class="letter-salutation">
+            Gửi <span id="letterRecipientName" class="recipient-highlight">Bạn</span> thân mến, 🌷
+          </h2>
+
+          <!-- Nội dung gốc (bạn có thể chỉnh sửa lời chúc ở đây) -->
+          <div class="letter-body" id="letterBodyContent">
+            <p class="typewriter-p" data-template="Nhân ngày Phụ nữ Việt Nam <strong>20/10</strong>, chúc <span class='inline-recipient-name'>{name}</span> luôn rạng rỡ như những đóa hoa ban mai, giữ mãi nụ cười tươi tắn và trái tim ấm áp. 🌸"></p>
+            <p class="typewriter-p" data-template="Chúc <span class='inline-recipient-name'>{name}</span> không chỉ riêng hôm nay mà cả 365 ngày trong năm đều luôn giữ được ánh mắt lấp lánh, nụ cười tự nhiên và một trái tim bình yên. Dù cuộc sống có đôi lúc bận rộn hay mỏi mệt, mong rằng <span class='inline-recipient-name'>{name}</span> vẫn luôn yêu thương bản thân, luôn gặp được những điều tử tế và những người thật lòng trân quý mình. 🌷"></p>
+            <p class="letter-wish-quote typewriter-p" data-template="“Cứ tự tin tỏa sáng theo cách riêng của <span class='inline-recipient-name'>{name}</span> nhé — vì bản thân <span class='inline-recipient-name'>{name}</span> đã là một đóa hoa đẹp nhất rồi!” 💐💖"></p>
+          </div>
+
+          <div class="letter-footer" id="letterFooter">
+            <!-- Con dấu tem thư & sáp trái tim 20/10 bên trái -->
+            <div class="letter-postmark" aria-hidden="true">
+              <div class="wax-seal-mini">💌</div>
+              <div class="postmark-info">
+                <span class="postmark-title">VIETNAM • 20/10</span>
+                <span class="postmark-sub">Special Delivery</span>
+              </div>
+            </div>
+
+            <!-- Chữ ký ấm áp có kèm tên người nhận bên phải -->
+            <div class="letter-signature">
+              <p class="sig-label">Thân mến gửi đến <span id="sigRecipientName" class="inline-recipient-name">bạn</span>,</p>
+              <p class="sig-name">Chúc bạn một ngày 20/10 thật trọn vẹn 🌷</p>
+            </div>
+          </div>
+
+          <!-- Cụm bó hoa nhỏ xinh kết thúc lá thư ở chính giữa dưới -->
+          <div class="letter-bottom-bouquet-divider" aria-hidden="true">
+            <span class="divider-line"></span>
+            <span class="mini-bouquet-icons">🌸 🌷 💐 🌷 🌸</span>
+            <span class="divider-line"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Container cho hiệu ứng mưa tim / cánh hoa bay khi mở thư -->
+  <div id="floatingHeartsContainer" class="floating-hearts-container" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

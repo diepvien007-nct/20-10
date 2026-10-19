@@ -635,45 +635,43 @@ function initNightSkyAndMeadowCanvas() {
       };
     });
 
-    // 3. Khóm Hoa Sen & Hoa Thu lớn vươn cao (đặt ở khoảng giữa bên trái từ 22% -> 34% để không bị cô gái xe đạp che khuất)
+    // 3. Khóm Hoa Sen & Hoa Thu lớn vươn cao (đặt ở khoảng giữa bên trái, trên mobile vươn cao lên phía trên xe đạp)
     leftTallFloralCluster = [
       {
-        baseX: width * (isMobile ? 0.16 : 0.22),
-        stemH: height * (isMobile ? 0.42 : 0.52),
-        curveX: width * (isMobile ? 0.12 : 0.11),
-        size: isMobile ? 16 : 22,
+        baseX: width * (isMobile ? 0.14 : 0.22),
+        stemH: height * (isMobile ? 0.44 : 0.52),
+        curveX: width * (isMobile ? 0.08 : 0.11),
+        size: isMobile ? 14 : 22,
         palette: { petals: '#ff80ab', inner: '#fff59d', type: 'layeredLotus' },
         swaySpeed: 0.0011,
         phase: 0.2,
         sideBuds: [
-          { t: 0.45, offset: -16, size: 9, color: '#ffab40' },
-          { t: 0.68, offset: 15, size: 12, color: '#ff80ab' },
-          { t: 0.85, offset: -12, size: 8, color: '#82b1ff' },
+          { t: 0.55, offset: -14, size: 8, color: '#ffab40' },
+          { t: 0.78, offset: 12, size: 10, color: '#ff80ab' },
         ],
       },
       {
-        baseX: width * (isMobile ? 0.21 : 0.255),
-        stemH: height * (isMobile ? 0.34 : 0.43),
-        curveX: width * (isMobile ? 0.09 : 0.085),
-        size: isMobile ? 14 : 18,
+        baseX: width * (isMobile ? 0.24 : 0.255),
+        stemH: height * (isMobile ? 0.37 : 0.43),
+        curveX: width * (isMobile ? 0.08 : 0.085),
+        size: isMobile ? 13 : 18,
         palette: { petals: '#ffd54f', inner: '#ffffff', type: 'layeredLotus' },
         swaySpeed: 0.0014,
         phase: 1.4,
         sideBuds: [
-          { t: 0.52, offset: 14, size: 9, color: '#f48fb1' },
-          { t: 0.78, offset: -12, size: 10, color: '#69f0ae' },
+          { t: 0.65, offset: 12, size: 8, color: '#f48fb1' },
         ],
       },
       {
-        baseX: width * (isMobile ? 0.26 : 0.295),
-        stemH: height * (isMobile ? 0.29 : 0.36),
-        curveX: width * (isMobile ? 0.07 : 0.065),
-        size: isMobile ? 13 : 16,
+        baseX: width * (isMobile ? 0.33 : 0.295),
+        stemH: height * (isMobile ? 0.30 : 0.36),
+        curveX: width * (isMobile ? 0.06 : 0.065),
+        size: isMobile ? 12 : 16,
         palette: { petals: '#82b1ff', inner: '#fff59d', type: 'daisy' },
         swaySpeed: 0.0013,
         phase: 2.5,
         sideBuds: [
-          { t: 0.6, offset: -13, size: 8, color: '#ff80ab' },
+          { t: 0.68, offset: -11, size: 7, color: '#ff80ab' },
         ],
       },
     ];

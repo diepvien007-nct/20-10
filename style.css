@@ -1325,39 +1325,57 @@ html, body {
 
 /* ==================== TỐI ƯU GIAO DIỆN MOBILE & DESKTOP ==================== */
 @media (max-width: 640px) {
+  .music-btn {
+    top: 10px;
+    right: 10px;
+    padding: 6px 11px;
+    font-size: 0.75rem;
+  }
+
   .main-stage {
-    padding: 18px 12px 19vh;
+    padding: 46px 12px 32vh;
+    justify-content: flex-start;
+    gap: 10px;
   }
 
-  .aodai-bike-container {
-    left: -2%;
-    bottom: 11vh;
-    width: 165px;
-    opacity: 0.85;
+  .sky-header {
+    margin-top: 4px;
+    min-height: 76px;
   }
 
-  .aodai-container {
-    right: -4%;
-    bottom: 7vh;
-    width: 170px;
-    opacity: 0.75;
+  .neon-typing-text {
+    font-size: clamp(1.2rem, 4.8vw, 1.48rem);
+    letter-spacing: 1.2px;
+  }
+
+  .bouquet-center-stage {
+    margin: 4px 0 auto;
   }
 
   .bouquet-img-box,
   .bouquet-aura {
-    width: min(68vw, 275px);
-    height: min(68vw, 275px);
+    width: min(56vw, 225px);
+    height: min(56vw, 225px);
   }
 
-  .wish-bubble {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+  .touch-prompt {
+    margin-top: 2px;
+    padding: 7px 18px;
   }
 
-  .compliment-pop-tag {
-    font-size: 0.8rem;
-    padding: 7px 13px;
+  /* Hai hoạt họa cô gái Áo Dài 2 bên to rõ hơn, đứng cao trên cỏ và không che bó hoa ở trên */
+  .aodai-bike-container {
+    left: -2%;
+    bottom: 11.5vh;
+    width: clamp(175px, 44vw, 215px);
+    opacity: 0.94;
+  }
+
+  .aodai-container {
+    right: -3%;
+    bottom: 9.5vh;
+    width: clamp(175px, 44vw, 215px);
+    opacity: 0.94;
   }
 
   .cute-frame {
